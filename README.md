@@ -17,49 +17,51 @@
 
 - has_many :product
 - has_one :buyer
+- has_one :order
 
 ## products テーブル
 
-| Column           | Type    | Options                        |
-| ---------------- | ------- | ------------------------------ |
-| image            | string  | null: false                    |
-| name             | string  | null: false                    |
-| explanation      | string  | null: false                    |
-| category         | string  | null: false                    |
-| status           | string  | null: false                    |
-| shipping_fee     | string  | null: false                    |
-| shipping_origin  | string  | null: false                    |
-| shipping_price   | string  | null: false                    |
-| user_id          | integer | null: false, foreign_key: true |
+| Column              | Type       | Options                        |
+| ------------------- | ---------- | ------------------------------ |
+| image               | string     | null: false                    |
+| name                | string     | null: false                    |
+| explanation         | text       | null: false                    |
+| category_id         | string     | null: false                    |
+| status_id           | string     | null: false                    |
+| shipping_fee_id     | string     | null: false                    |
+| shipping_origin_id  | string     | null: false                    |
+| shipping_price_id   | string     | null: false                    |
+| selling_price       | string     | null: false                    |
+| user_id             | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
+- has_one :order
 
 ## buyers テーブル
 
-| Column        | Type    | Options     |
-| ------------- | ------- | ----------- |
-| postal_code   | integer | null: false |
-| prefectures   | string  | null: false |
-| city          | string  | null: false |
-| address       | string  | null: false |
-| building_name | string  |             |
-| phone_number  | string  | null: false |
+| Column         | Type    | Options     |
+| -------------- | ------- | ----------- |
+| postal_code    | string  | null: false |
+| prefectures_id | string  | null: false |
+| city           | string  | null: false |
+| address        | string  | null: false |
+| building_name  | string  |             |
+| phone_number   | string  | null: false |
 
 ### Association
 
 - belongs_to :user
-- has_one :card
 
-## cards テーブル
+## orders テーブル
 
 | Column      | Type       | Options     |
-| -------     | ---------- | ----------- |
-| card_number | string     |             |
-| user        | references | null: false |
-| room        | references | null: false |
+| ---------   | ---------- | ----------- |
+| user_id     | references | null: false |
+| product_id  | references | null: false |
 
 ### Association
 
-- belongs_to :buyer
+- belongs_to :user
+- belongs_to :product
