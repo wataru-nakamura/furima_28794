@@ -16,7 +16,6 @@
 ### Association
 
 - has_many :product
-- has_one :buyer
 - has_one :order
 
 ## products テーブル
@@ -52,7 +51,7 @@
 
 ### Association
 
-- belongs_to :user
+- has_one :order
 
 ## orders テーブル
 
@@ -60,8 +59,10 @@
 | ---------   | ---------- | ----------- |
 | user_id     | references | null: false |
 | product_id  | references | null: false |
+| buyer_id    | references | null: false |
 
 ### Association
 
 - belongs_to :user
 - belongs_to :product
+- belongs_to :buyer
