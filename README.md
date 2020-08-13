@@ -25,25 +25,25 @@
 | image               | string     | null: false                    |
 | name                | string     | null: false                    |
 | explanation         | text       | null: false                    |
-| category_id         | string     | null: false                    |
-| status_id           | string     | null: false                    |
-| shipping_fee_id     | string     | null: false                    |
-| shipping_origin_id  | string     | null: false                    |
-| shipping_price_id   | string     | null: false                    |
+| category_id         | integer    | null: false                    |
+| status_id           | integer    | null: false                    |
+| shipping_fee_id     | integer    | null: false                    |
+| shipping_origin_id  | integer    | null: false                    |
+| shipping_price_id   | integer    | null: false                    |
 | selling_price       | string     | null: false                    |
 | user_id             | references | null: false, foreign_key: true |
 
 ### Association
 
 - belongs_to :user
-- belongs_to :order
+- has_one :order
 
 ## buyers テーブル
 
 | Column         | Type    | Options     |
 | -------------- | ------- | ----------- |
 | postal_code    | string  | null: false |
-| prefectures_id | string  | null: false |
+| prefectures_id | integer | null: false |
 | city           | string  | null: false |
 | address        | string  | null: false |
 | building_name  | string  |             |
