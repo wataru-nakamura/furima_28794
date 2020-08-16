@@ -1,2 +1,17 @@
 class Product < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to_active_hash :category
+  belongs_to_active_hash :status
+  belongs_to_active_hash :shipping_fee
+  belongs_to_active_hash :shipping_origin
+  belongs_to_active_hash :shipping_price
+
+
+  validates :image, :name, :explanation, :category_id, :status_id,
+            :shipping_fee_id, :shipping_origin_id,:shipping_price_id, 
+            :selling_price, :user_id, presence: true
+
+  
+  validates :category_id, :status_id, :shipping_fee_id, :shipping_origin_id,
+            :shipping_price_id, numericality: { other_than: 1 }
 end
