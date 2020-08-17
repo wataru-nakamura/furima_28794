@@ -9,13 +9,12 @@ class Product < ApplicationRecord
   has_one_attached :image
 
   validates :image, :name, :explanation, :category_id, :status_id,
-            :shipping_fee_id, :shipping_origin_id,:shipping_price_id, 
+            :shipping_fee_id, :shipping_origin_id, :shipping_price_id,
             :selling_price, :user_id, presence: true
 
   validates :selling_price, numericality: { greater_than_or_equal_to: 300,
-            less_than_or_equal_to: 9999999,}
+                                            less_than_or_equal_to: 9_999_999 }
 
-  
   validates :category_id, :status_id, :shipping_fee_id, :shipping_origin_id,
             :shipping_price_id, numericality: { other_than: 1 }
 end
