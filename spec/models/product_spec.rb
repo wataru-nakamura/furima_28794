@@ -68,10 +68,16 @@ RSpec.describe Product, type: :model do
         expect(@product.errors.full_messages).to include("Selling price can't be blank")
       end
 
-      it '価格の範囲が、¥300~¥9,999,999の範囲外だと出品できない' do
+      it '価格の範囲が、¥300以下だと出品できない' do
         @product.selling_price = 200
         @product.valid?
         expect(@product.errors.full_messages).to include('Selling price must be greater than or equal to 300')
+      end
+
+      it '価格の範囲が、¥9,999,999以上だと出品できない' do
+        @product.selling_price = 10000000
+        @product.valid?
+        expect(@product.errors.full_messages).to include('Selling price must be less than or equal to 9999999')
       end
     end
   end
