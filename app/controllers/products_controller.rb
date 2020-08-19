@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
-
+  before_action :find_product, only:[:show, :edit]
   def index
     @products = Product.all
   end
@@ -19,13 +19,25 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
+  end
+
+  def edit
+  end
+
+  def update
+    product = Product.find(params[:id])
+    product.update(product_params)
+    redirect_to root_path if product.save
   end
 
   private
 
   def move_to_index
     redirect_to action: :index unless user_signed_in?
+  end
+
+  def find_product
+    @product = Product.find(params[:id])
   end
 
   def product_params
