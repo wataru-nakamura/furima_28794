@@ -29,11 +29,8 @@ class ProductsController < ApplicationController
   def update
     product = Product.find(params[:id])
     product.update(product_params)
-    if product.save
-      redirect_to root_path
-    end
+    redirect_to root_path if product.save
   end
-
 
   private
 
