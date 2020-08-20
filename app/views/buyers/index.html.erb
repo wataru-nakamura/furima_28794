@@ -10,10 +10,10 @@
       <%= image_tag @product.image, class: 'buy-item-img' %>
       <div class='buy-item-right-content'>
         <h2 class='buy-item-text'>
-          <%= "商品説明" %>
+          <%= @product.explanation %>
         </h2>
         <div class='buy-item-price'>
-          <p class='item-price-text'>¥<%= @product.price %></p>
+          <p class='item-price-text'>¥<%= @product.selling_price %></p>
           <p class='item-price-sub-text'>（税込）送料込み</p>
         </div>
       </div>
@@ -26,7 +26,7 @@
         支払金額
       </h1>
       <p class='item-payment-price'>
-        ¥<%= "販売価格" %>
+        ¥<%= @product.selling_price %>
       </p>
     </div>
     <%# /支払額の表示 %>
