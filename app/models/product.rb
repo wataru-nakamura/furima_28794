@@ -1,13 +1,15 @@
 class Product < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :user
+  has_one :order
+  has_one :buyer
   belongs_to_active_hash :category
   belongs_to_active_hash :status
   belongs_to_active_hash :shipping_fee
   belongs_to_active_hash :shipping_origin
   belongs_to_active_hash :shipping_price
   has_one_attached :image
-  has_one :order
+  
 
   with_options presence: true do
     validates :image, :name, :explanation, :selling_price, :user_id
