@@ -4,6 +4,17 @@ class BuyersController < ApplicationController
 
   def index
     @buyer = Buyerorder.new
+
+    #出品者が直接購入ページに遷移してくるとトップページに遷移する
+    if current_user.id == @product.user_id
+      return redirect_to root_path
+    end
+
+    #購入済みの商品の購入ページに直接遷移してくるとトップページに飛ぶ
+    # if Order.where(user_id: current_user.id ) != []
+    #   return redirect_to root_path
+    # end
+
   end
 
   def create

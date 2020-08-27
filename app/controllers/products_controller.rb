@@ -1,8 +1,9 @@
 class ProductsController < ApplicationController
   before_action :move_to_index, except: [:index, :show]
   before_action :find_product, only: [:show, :edit, :destroy]
+  
   def index
-    @products = Product.all
+    @products = Product.all.order("created_at DESC")
   end
 
   def new
