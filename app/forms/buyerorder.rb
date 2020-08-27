@@ -2,16 +2,17 @@ class Buyerorder
 
   include ActiveModel::Model
   attr_accessor :postal_code, :prefectures_id, :city, :address, :building_name,
-                :phone_number, :user_id, :product_id
+                :phone_number, :user_id, :product_id, :token
 
   POSTAL_CODE_REGEX = /\A\d{3}[-]\d{4}\z/.freeze
   PHONE_NUMBER_REGEX = /\A\d{11}\z/.freeze
 
   with_options presence: true do  
-    validates :city, :address
+    validates :city, :address, :token
     validates :postal_code, format: {with: POSTAL_CODE_REGEX }
     validates :phone_number, format: {with: PHONE_NUMBER_REGEX }
     validates :prefectures_id, numericality: { other_than: 1 }
+
   end
 
   def save

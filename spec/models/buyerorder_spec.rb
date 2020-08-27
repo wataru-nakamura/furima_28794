@@ -1,8 +1,8 @@
 require 'rails_helper'
 
-RSpec.describe Buyer, type: :model do
+RSpec.describe Buyerorder, type: :model do
   before do
-    @buyer = FactoryBot.build(:buyer)
+    @buyer = FactoryBot.build(:buyerorder)
   end
 
 
@@ -14,6 +14,13 @@ RSpec.describe Buyer, type: :model do
     end
 
     context '商品購入が上手くいかない時' do
+
+      it 'tokenが空の場合購入できない' do
+        @buyer.token = ''
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include()
+      end
+
       
       it '郵便番号が空だと購入できない' do
         @buyer.postal_code = ''
@@ -59,6 +66,12 @@ RSpec.describe Buyer, type: :model do
 
       it '電話番号が12桁以上だと購入できない' do
         @buyer.phone_number = '0901234567890'
+        @buyer.valid?
+        expect(@buyer.errors.full_messages).to include()
+      end
+
+      it '都道府県が{--}の場合購入できない' do
+        @buyer.prefectures_id = '1'
         @buyer.valid?
         expect(@buyer.errors.full_messages).to include()
       end

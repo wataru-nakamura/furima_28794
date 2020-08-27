@@ -19,10 +19,8 @@ class BuyersController < ApplicationController
 
   def create
     @buyer = Buyerorder.new(buyer_params)
-    # binding.pry
     if @buyer.valid?
       pay_item
-      binding.pry
       @buyer.save
       return redirect_to root_path
     else
@@ -41,8 +39,8 @@ class BuyersController < ApplicationController
   end
 
   def buyer_params
-    params.require(:buyerorder).permit(:token, :postal_code, :prefectures_id, :city,
-    :address, :building_name, :phone_number).merge(user_id: current_user.id, product_id: @product.id)
+    params.require(:buyerorder).permit(:postal_code, :prefectures_id, :city,
+    :address, :building_name, :phone_number).merge(token: params[:token], user_id: current_user.id, product_id: @product.id)
   end
 
   def pay_item
