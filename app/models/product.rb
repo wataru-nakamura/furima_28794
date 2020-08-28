@@ -9,7 +9,6 @@ class Product < ApplicationRecord
   belongs_to_active_hash :shipping_origin
   belongs_to_active_hash :shipping_price
   has_one_attached :image
-  
 
   with_options presence: true do
     validates :image, :name, :explanation, :selling_price, :user_id

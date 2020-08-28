@@ -5,16 +5,11 @@ class BuyersController < ApplicationController
   def index
     @buyer = Buyerorder.new
 
-    #出品者が直接購入ページに遷移してくるとトップページに遷移する
-    if current_user.id == @product.user_id
-      return redirect_to root_path
-    end
+    # 出品者が直接購入ページに遷移してくるとトップページに遷移する
+    return redirect_to root_path if current_user.id == @product.user_id
 
-    #購入済みの商品の購入ページに直接遷移してくるとトップページに飛ぶ
-    # if Order.where(user_id: current_user.id ) != []
-    #   return redirect_to root_path
-    # end
-
+    # 購入済みの商品の購入ページに直接遷移してくるとトップページに飛ぶ
+    return redirect_to root_path if @product.order
   end
 
   def create
@@ -22,7 +17,7 @@ class BuyersController < ApplicationController
     if @buyer.valid?
       pay_item
       @buyer.save
-      return redirect_to root_path
+      redirect_to root_path
     else
       render 'index'
     end
@@ -40,16 +35,15 @@ class BuyersController < ApplicationController
 
   def buyer_params
     params.require(:buyerorder).permit(:postal_code, :prefectures_id, :city,
-    :address, :building_name, :phone_number).merge(token: params[:token], user_id: current_user.id, product_id: @product.id)
+                                       :address, :building_name, :phone_number).merge(token: params[:token], user_id: current_user.id, product_id: @product.id)
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @product.selling_price,
       card: params[:token],
-      currency:'jpy'
+      currency: 'jpy'
     )
   end
-
 end

@@ -29,7 +29,6 @@ const pay = () => {
         document.getElementById("charge-form").submit();
         document.getElementById("charge-form").reset();
       } else {
-        alert("送信内容に不備があります")
       }
     });
   });
